@@ -1,0 +1,2659 @@
+```html
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Otto von Bismarck — Залізний канцлер</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #08090c;
+    color: #e8e5dc;
+    font-family: Georgia, "Times New Roman", serif;
+    overflow-x: hidden;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+    --black: #08090c;
+    --dark: #0d1016;
+    --dark2: #151922;
+
+    --gold: #c8a55b;
+    --gold2: #e0c27a;
+
+    --white: #f4f1e8;
+    --gray: #9b9ca2;
+
+    --border: rgba(200,165,91,.25);
+
+    --ease: cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   NOISE
+========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .035;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+
+    z-index: 9999;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader {
+    position: fixed;
+    inset: 0;
+
+    background: #050608;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 10000;
+
+    transition: 1s ease;
+}
+
+.loader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-box {
+    text-align: center;
+}
+
+.loader-symbol {
+    font-size: 70px;
+    color: var(--gold);
+
+    animation: loaderPulse 1.5s infinite;
+}
+
+.loader-title {
+    margin-top: 20px;
+
+    color: white;
+
+    letter-spacing: 7px;
+    text-transform: uppercase;
+
+    font-size: 12px;
+}
+
+.loader-line {
+    width: 220px;
+    height: 1px;
+
+    margin: 25px auto;
+
+    background: #272a31;
+
+    overflow: hidden;
+}
+
+.loader-line::after {
+    content: "";
+
+    display: block;
+
+    width: 50%;
+    height: 100%;
+
+    background: var(--gold);
+
+    animation: loaderLine 1.4s infinite;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+header {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    z-index: 900;
+
+    padding: 25px 0;
+
+    transition: .4s var(--ease);
+}
+
+header.scrolled {
+    padding: 13px 0;
+
+    background: rgba(7,8,11,.94);
+
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid var(--border);
+}
+
+.container {
+    width: min(1200px, 90%);
+    margin: auto;
+}
+
+.nav {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: Arial, sans-serif;
+
+    font-size: 22px;
+
+    letter-spacing: 4px;
+
+    font-weight: 700;
+}
+
+.logo span {
+    color: var(--gold);
+}
+
+.nav-menu {
+    display: flex;
+
+    list-style: none;
+
+    gap: 32px;
+}
+
+.nav-menu a {
+    position: relative;
+
+    color: #bcbcc0;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    transition: .3s;
+}
+
+.nav-menu a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -8px;
+
+    width: 0;
+    height: 1px;
+
+    background: var(--gold);
+
+    transition: .3s;
+}
+
+.nav-menu a:hover {
+    color: var(--gold2);
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+.menu {
+    display: none;
+
+    background: none;
+    border: none;
+
+    color: white;
+
+    font-size: 28px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 100vh;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.hero-image {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(5,6,9,.98) 0%,
+            rgba(5,6,9,.90) 35%,
+            rgba(5,6,9,.45) 70%,
+            rgba(5,6,9,.75) 100%
+        ),
+
+        url("https://commons.wikimedia.org/wiki/Special:FilePath/Bismarck%20circa%201870.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    transform: scale(1.08);
+
+    animation: heroZoom 12s ease forwards;
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 220px;
+
+    background: linear-gradient(
+        transparent,
+        var(--black)
+    );
+}
+
+.hero-content {
+    position: relative;
+
+    z-index: 3;
+
+    max-width: 850px;
+
+    padding-top: 70px;
+}
+
+.overline {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    color: var(--gold);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 25px;
+}
+
+.overline::before {
+    content: "";
+
+    width: 55px;
+    height: 1px;
+
+    background: var(--gold);
+}
+
+.hero h1 {
+    font-size: clamp(65px, 10vw, 145px);
+
+    line-height: .84;
+
+    letter-spacing: -7px;
+
+    color: white;
+
+    margin-bottom: 40px;
+}
+
+.hero h1 span {
+    display: block;
+
+    color: var(--gold);
+}
+
+.hero-text {
+    max-width: 650px;
+
+    font-size: 20px;
+
+    line-height: 1.7;
+
+    color: #c6c5c1;
+
+    margin-bottom: 35px;
+}
+
+.buttons {
+    display: flex;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 27px;
+
+    border: 1px solid var(--gold);
+
+    background: var(--gold);
+
+    color: #111;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+
+    transition: .4s var(--ease);
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 15px 35px rgba(200,165,91,.2);
+}
+
+.btn-outline {
+    background: transparent;
+
+    color: var(--gold);
+}
+
+.btn-outline:hover {
+    background: var(--gold);
+
+    color: #111;
+}
+
+.hero-date {
+    position: absolute;
+
+    right: 4%;
+    bottom: 60px;
+
+    z-index: 4;
+
+    color: #777;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 5px;
+
+    writing-mode: vertical-rl;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section {
+    padding: 130px 0;
+}
+
+.section-top {
+    margin-bottom: 65px;
+}
+
+.section-number {
+    display: block;
+
+    color: var(--gold);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 18px;
+}
+
+.section-title {
+    font-size: clamp(45px, 6vw, 75px);
+
+    line-height: 1;
+
+    color: white;
+
+    margin-bottom: 20px;
+}
+
+.section-description {
+    color: var(--gray);
+
+    font-size: 18px;
+
+    max-width: 680px;
+}
+
+
+/* =========================================================
+   BIOGRAPHY
+========================================================= */
+
+.bio-grid {
+    display: grid;
+
+    grid-template-columns: .9fr 1.1fr;
+
+    gap: 80px;
+
+    align-items: center;
+}
+
+.bio-photo {
+    position: relative;
+}
+
+.bio-photo img {
+    height: 650px;
+
+    object-fit: cover;
+
+    filter: grayscale(100%);
+
+    transition: 1s var(--ease);
+}
+
+.bio-photo:hover img {
+    filter: grayscale(15%);
+
+    transform: scale(1.02);
+}
+
+.bio-photo::before {
+    content: "";
+
+    position: absolute;
+
+    left: -20px;
+    top: -20px;
+
+    width: 130px;
+    height: 130px;
+
+    border-top: 2px solid var(--gold);
+    border-left: 2px solid var(--gold);
+
+    z-index: 2;
+}
+
+.bio-photo::after {
+    content: "";
+
+    position: absolute;
+
+    right: -20px;
+    bottom: -20px;
+
+    width: 130px;
+    height: 130px;
+
+    border-right: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+}
+
+.bio-content h3 {
+    font-size: 38px;
+
+    color: white;
+
+    margin-bottom: 25px;
+}
+
+.bio-content p {
+    color: #b2b2b5;
+
+    font-size: 17px;
+
+    margin-bottom: 20px;
+}
+
+.quote {
+    margin: 35px 0;
+
+    padding: 25px;
+
+    border-left: 3px solid var(--gold);
+
+    background: rgba(200,165,91,.04);
+
+    font-size: 23px;
+
+    font-style: italic;
+
+    color: #e5e0d2;
+}
+
+
+/* =========================================================
+   FACTS
+========================================================= */
+
+.facts {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.fact {
+    padding: 45px 20px;
+
+    text-align: center;
+
+    border-right: 1px solid var(--border);
+
+    transition: .4s;
+}
+
+.fact:last-child {
+    border-right: none;
+}
+
+.fact:hover {
+    background: rgba(200,165,91,.04);
+
+    transform: translateY(-7px);
+}
+
+.fact strong {
+    display: block;
+
+    font-size: 43px;
+
+    color: var(--gold);
+
+    margin-bottom: 7px;
+}
+
+.fact span {
+    color: #85868c;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline {
+    position: relative;
+
+    max-width: 1000px;
+
+    margin: auto;
+}
+
+.timeline::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+    bottom: 0;
+
+    width: 1px;
+
+    background: linear-gradient(
+        var(--gold),
+        rgba(200,165,91,.05)
+    );
+}
+
+.timeline-item {
+    position: relative;
+
+    width: 50%;
+
+    padding: 25px 55px;
+
+    opacity: 0;
+
+    transform: translateY(50px);
+
+    transition: .8s var(--ease);
+}
+
+.timeline-item.visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.timeline-item:nth-child(even) {
+    margin-left: 50%;
+}
+
+.timeline-dot {
+    position: absolute;
+
+    top: 40px;
+
+    width: 15px;
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: var(--black);
+
+    border: 3px solid var(--gold);
+}
+
+.timeline-item:nth-child(odd) .timeline-dot {
+    right: -8px;
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+    left: -8px;
+}
+
+.timeline-card {
+    padding: 30px;
+
+    border: 1px solid rgba(255,255,255,.07);
+
+    background: #11151c;
+
+    transition: .4s var(--ease);
+}
+
+.timeline-card:hover {
+    transform: translateY(-8px);
+
+    border-color: var(--border);
+
+    box-shadow: 0 20px 50px rgba(0,0,0,.3);
+}
+
+.year {
+    color: var(--gold);
+
+    font-size: 32px;
+
+    font-weight: bold;
+}
+
+.timeline-card h3 {
+    color: white;
+
+    font-size: 24px;
+
+    margin: 8px 0 12px;
+}
+
+.timeline-card p {
+    color: #85878e;
+}
+
+
+/* =========================================================
+   POLITICS
+========================================================= */
+
+.dark-section {
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(200,165,91,.05),
+            transparent 35%
+        ),
+        #0c0f14;
+}
+
+.cards {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.card {
+    padding: 40px 32px;
+
+    min-height: 300px;
+
+    border: 1px solid rgba(255,255,255,.06);
+
+    background: #11151c;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition: .5s var(--ease);
+}
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: var(--gold);
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: .5s;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+
+    border-color: var(--border);
+}
+
+.card:hover::before {
+    transform: scaleX(1);
+}
+
+.card-number {
+    font-family: Arial, sans-serif;
+
+    font-size: 55px;
+
+    color: rgba(200,165,91,.13);
+}
+
+.card h3 {
+    color: white;
+
+    font-size: 25px;
+
+    margin: 10px 0 15px;
+}
+
+.card p {
+    color: #898b92;
+}
+
+
+/* =========================================================
+   IMAGE SHOWCASE
+========================================================= */
+
+.showcase {
+    display: grid;
+
+    grid-template-columns: 1.4fr .8fr;
+
+    gap: 20px;
+
+    min-height: 650px;
+}
+
+.showcase-main {
+    position: relative;
+
+    overflow: hidden;
+}
+
+.showcase-main img {
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: grayscale(100%);
+
+    transition: 1s;
+}
+
+.showcase-main:hover img {
+    filter: grayscale(10%);
+
+    transform: scale(1.04);
+}
+
+.showcase-side {
+    display: grid;
+
+    grid-template-rows: 1fr 1fr;
+
+    gap: 20px;
+}
+
+.showcase-side div {
+    overflow: hidden;
+
+    position: relative;
+}
+
+.showcase-side img {
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: grayscale(90%);
+
+    transition: .8s;
+}
+
+.showcase-side div:hover img {
+    filter: grayscale(0%);
+
+    transform: scale(1.07);
+}
+
+.image-label {
+    position: absolute;
+
+    left: 25px;
+    bottom: 25px;
+
+    z-index: 2;
+
+    color: white;
+
+    font-size: 18px;
+
+    text-shadow: 0 2px 10px black;
+}
+
+
+/* =========================================================
+   QUOTE SECTION
+========================================================= */
+
+.quote-section {
+    min-height: 550px;
+
+    display: flex;
+
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(5,7,10,.80),
+            rgba(5,7,10,.92)
+        ),
+        url("https://commons.wikimedia.org/wiki/Special:FilePath/BismarckPferd.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+}
+
+.big-quote {
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.quote-mark {
+    color: var(--gold);
+
+    font-size: 100px;
+
+    line-height: .5;
+}
+
+.big-quote blockquote {
+    color: white;
+
+    font-size: clamp(30px, 5vw, 60px);
+
+    line-height: 1.2;
+
+    font-style: italic;
+
+    margin: 40px 0;
+}
+
+.big-quote cite {
+    color: var(--gold);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    font-style: normal;
+}
+
+
+/* =========================================================
+   LEGACY
+========================================================= */
+
+.legacy {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+.legacy-image {
+    overflow: hidden;
+}
+
+.legacy-image img {
+    height: 600px;
+
+    object-fit: cover;
+
+    filter: grayscale(100%);
+
+    transition: .8s;
+}
+
+.legacy-image:hover img {
+    filter: grayscale(10%);
+
+    transform: scale(1.03);
+}
+
+.legacy-content h3 {
+    font-size: 38px;
+
+    color: white;
+
+    margin-bottom: 25px;
+}
+
+.legacy-content p {
+    color: #999aa0;
+
+    font-size: 17px;
+
+    margin-bottom: 20px;
+}
+
+.legacy-list {
+    list-style: none;
+
+    margin-top: 30px;
+}
+
+.legacy-list li {
+    padding: 15px 0;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    color: #d0cec7;
+}
+
+.legacy-list li::before {
+    content: "◆";
+
+    color: var(--gold);
+
+    margin-right: 12px;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding: 70px 0 35px;
+
+    text-align: center;
+
+    border-top: 1px solid var(--border);
+
+    background: #06070a;
+}
+
+footer .logo {
+    margin-bottom: 20px;
+}
+
+footer p {
+    max-width: 600px;
+
+    margin: auto;
+
+    color: #666971;
+}
+
+.footer-line {
+    width: 90px;
+
+    height: 1px;
+
+    background: var(--gold);
+
+    margin: 30px auto;
+}
+
+.copyright {
+    color: #44464d;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TOP BUTTON
+========================================================= */
+
+.top {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    width: 50px;
+    height: 50px;
+
+    background: #10131a;
+
+    border: 1px solid var(--border);
+
+    color: var(--gold);
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: .3s;
+
+    z-index: 800;
+}
+
+.top.show {
+    opacity: 1;
+
+    visibility: visible;
+}
+
+.top:hover {
+    background: var(--gold);
+
+    color: black;
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(45px);
+
+    transition:
+        opacity .9s ease,
+        transform .9s var(--ease);
+}
+
+.reveal.visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes heroZoom {
+
+    from {
+        transform: scale(1.13);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+
+}
+
+@keyframes loaderPulse {
+
+    0%,100% {
+        transform: scale(.9);
+
+        opacity: .5;
+    }
+
+    50% {
+        transform: scale(1.1);
+
+        opacity: 1;
+    }
+
+}
+
+@keyframes loaderLine {
+
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(300%);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 900px) {
+
+    .menu {
+        display: block;
+    }
+
+    .nav-menu {
+        position: fixed;
+
+        top: 70px;
+
+        right: -100%;
+
+        width: 280px;
+
+        padding: 35px;
+
+        flex-direction: column;
+
+        background: #090b10;
+
+        border: 1px solid var(--border);
+
+        transition: .4s;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .bio-grid,
+    .legacy {
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+    }
+
+    .facts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fact:nth-child(2) {
+        border-right: none;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .showcase {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+    }
+
+    .showcase-main {
+        height: 500px;
+    }
+
+    .showcase-side {
+        height: 600px;
+    }
+
+    .timeline::before {
+        left: 12px;
+    }
+
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding-left: 45px;
+
+        padding-right: 0;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot {
+        left: 5px;
+
+        right: auto;
+    }
+
+}
+
+
+@media(max-width: 600px) {
+
+    section {
+        padding: 90px 0;
+    }
+
+    .hero h1 {
+        font-size: 70px;
+
+        letter-spacing: -4px;
+    }
+
+    .hero-text {
+        font-size: 17px;
+    }
+
+    .bio-photo img {
+        height: 480px;
+    }
+
+    .facts {
+        grid-template-columns: 1fr;
+    }
+
+    .fact {
+        border-right: none;
+
+        border-bottom: 1px solid var(--border);
+    }
+
+    .fact:last-child {
+        border-bottom: none;
+    }
+
+    .showcase-main {
+        height: 400px;
+    }
+
+    .showcase-side {
+        height: 500px;
+    }
+
+    .legacy-image img {
+        height: 450px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOADER
+========================================================= -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-box">
+
+        <div class="loader-symbol">
+            ♜
+        </div>
+
+        <div class="loader-line"></div>
+
+        <div class="loader-title">
+            Otto von Bismarck
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<header id="header">
+
+    <div class="container nav">
+
+        <a href="#home" class="logo">
+            BIS<span>MARCK</span>
+        </a>
+
+        <button class="menu" id="menu">
+            ☰
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
+
+            <li>
+                <a href="#home">Головна</a>
+            </li>
+
+            <li>
+                <a href="#biography">Біографія</a>
+            </li>
+
+            <li>
+                <a href="#timeline">Хронологія</a>
+            </li>
+
+            <li>
+                <a href="#politics">Політика</a>
+            </li>
+
+            <li>
+                <a href="#gallery">Галерея</a>
+            </li>
+
+            <li>
+                <a href="#legacy">Спадщина</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-image"></div>
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="overline">
+                1815 — 1898
+            </div>
+
+            <h1>
+                Отто
+                <span>Бісмарк</span>
+            </h1>
+
+            <p class="hero-text">
+                Прусський державний діяч, дипломат і перший
+                канцлер Німецької імперії. Людина, яка стала
+                одним із головних архітекторів європейського
+                політичного порядку XIX століття.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#biography" class="btn">
+                    Його історія
+                </a>
+
+                <a href="#timeline" class="btn btn-outline">
+                    Хронологія
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-date">
+        SCHÖNHAUSEN · BERLIN · FRIEDRICHSRUH
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     BIOGRAPHY
+========================================================= -->
+
+<section id="biography">
+
+    <div class="container">
+
+        <div class="section-top reveal">
+
+            <span class="section-number">
+                01 / БІОГРАФІЯ
+            </span>
+
+            <h2 class="section-title">
+                Людина за легендою
+            </h2>
+
+            <p class="section-description">
+                Від прусського юнкера до першого канцлера
+                Німецької імперії.
+            </p>
+
+        </div>
+
+
+        <div class="bio-grid">
+
+            <div class="bio-photo reveal">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Otto%20von%20Bismarck%2C%20c.%201860-1870.jpg"
+                    alt="Отто фон Бісмарк у 1860–1870-х роках"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div class="bio-content reveal">
+
+                <h3>
+                    Залізний канцлер
+                </h3>
+
+                <p>
+                    Отто Едуард Леопольд фон Бісмарк народився
+                    1 квітня 1815 року в Шенгаузені, Пруссія.
+                    Він походив із дворянської родини та
+                    навчався права в Геттінгені й Берліні.
+                </p>
+
+                <p>
+                    У молодості Бісмарк не здавався людиною,
+                    яка обов'язково стане одним із найвідоміших
+                    політиків Європи. Проте його консервативні
+                    переконання, сильний характер та неабиякий
+                    дипломатичний талант поступово привели його
+                    до великої політики.
+                </p>
+
+                <p>
+                    У 1862 році король Вільгельм I призначив
+                    Бісмарка міністром-президентом Пруссії.
+                    Саме з цього моменту розпочалася найважливіша
+                    частина його політичної кар'єри.
+                </p>
+
+                <div class="quote">
+                    «Політика — це мистецтво можливого».
+                </div>
+
+                <p>
+                    Бісмарк використовував Realpolitik —
+                    практичний підхід до політики, у якому
+                    державні інтереси та реальний баланс сил
+                    важливіші за абстрактні політичні принципи.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FACTS
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+        <div class="facts reveal">
+
+            <div class="fact">
+                <strong>1815</strong>
+                <span>Народження</span>
+            </div>
+
+            <div class="fact">
+                <strong>1862</strong>
+                <span>Прем'єр Пруссії</span>
+            </div>
+
+            <div class="fact">
+                <strong>1871</strong>
+                <span>Німецька імперія</span>
+            </div>
+
+            <div class="fact">
+                <strong>1898</strong>
+                <span>Смерть</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TIMELINE
+========================================================= -->
+
+<section id="timeline">
+
+    <div class="container">
+
+        <div class="section-top reveal">
+
+            <span class="section-number">
+                02 / ХРОНОЛОГІЯ
+            </span>
+
+            <h2 class="section-title">
+                Шлях до влади
+            </h2>
+
+            <p class="section-description">
+                Ключові моменти життя та політичної кар'єри
+                Бісмарка.
+            </p>
+
+        </div>
+
+
+        <div class="timeline">
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1815
+                    </div>
+
+                    <h3>
+                        Народження
+                    </h3>
+
+                    <p>
+                        1 квітня народився Отто фон Бісмарк
+                        у Шенгаузені в Пруссії.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1835
+                    </div>
+
+                    <h3>
+                        Освіта
+                    </h3>
+
+                    <p>
+                        Завершує юридичну освіту та починає
+                        кар'єру на державній службі.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1847
+                    </div>
+
+                    <h3>
+                        Політика
+                    </h3>
+
+                    <p>
+                        Стає членом Об'єднаного ландтагу
+                        Пруссії та починає активну політичну
+                        діяльність.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1862
+                    </div>
+
+                    <h3>
+                        Прем'єр-міністр Пруссії
+                    </h3>
+
+                    <p>
+                        Вільгельм I призначає Бісмарка
+                        міністром-президентом Пруссії.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1864
+                    </div>
+
+                    <h3>
+                        Війна з Данією
+                    </h3>
+
+                    <p>
+                        Пруссія та Австрія перемагають Данію.
+                        Шлезвіг і Гольштейн переходять під
+                        контроль переможців.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1866
+                    </div>
+
+                    <h3>
+                        Перемога над Австрією
+                    </h3>
+
+                    <p>
+                        Пруссія перемагає Австрію та стає
+                        домінуючою силою серед німецьких держав.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1870–1871
+                    </div>
+
+                    <h3>
+                        Франко-прусська війна
+                    </h3>
+
+                    <p>
+                        Війна з Францією прискорює об'єднання
+                        німецьких держав навколо Пруссії.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1871
+                    </div>
+
+                    <h3>
+                        Проголошення імперії
+                    </h3>
+
+                    <p>
+                        18 січня у Версалі проголошено
+                        Німецьку імперію. Бісмарк стає
+                        її першим канцлером.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1890
+                    </div>
+
+                    <h3>
+                        Відставка
+                    </h3>
+
+                    <p>
+                        Через конфлікт із молодим імператором
+                        Вільгельмом II Бісмарк залишає посаду.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <div class="year">
+                        1898
+                    </div>
+
+                    <h3>
+                        Кінець життя
+                    </h3>
+
+                    <p>
+                        30 липня Бісмарк помирає у Фрідріхсру
+                        у віці 83 років.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     POLITICS
+========================================================= -->
+
+<section class="dark-section" id="politics">
+
+    <div class="container">
+
+        <div class="section-top reveal">
+
+            <span class="section-number">
+                03 / ПОЛІТИКА
+            </span>
+
+            <h2 class="section-title">
+                Realpolitik
+            </h2>
+
+            <p class="section-description">
+                Бісмарк поєднував дипломатію, військову силу
+                та політичний розрахунок.
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+
+            <div class="card reveal">
+
+                <div class="card-number">
+                    01
+                </div>
+
+                <h3>
+                    Об'єднання Німеччини
+                </h3>
+
+                <p>
+                    Бісмарк зробив Пруссію центром процесу
+                    політичного об'єднання німецьких земель.
+                </p>
+
+            </div>
+
+
+            <div class="card reveal">
+
+                <div class="card-number">
+                    02
+                </div>
+
+                <h3>
+                    Дипломатія
+                </h3>
+
+                <p>
+                    Після 1871 року він створював систему
+                    міжнародних домовленостей, яка мала
+                    захищати позиції Німеччини в Європі.
+                </p>
+
+            </div>
+
+
+            <div class="card reveal">
+
+                <div class="card-number">
+                    03
+                </div>
+
+                <h3>
+                    Соціальні реформи
+                </h3>
+
+                <p>
+                    У 1880-х роках у Німеччині були створені
+                    важливі системи державного соціального
+                    страхування.
+                </p>
+
+            </div>
+
+
+            <div class="card reveal">
+
+                <div class="card-number">
+                    04
+                </div>
+
+                <h3>
+                    Сильна держава
+                </h3>
+
+                <p>
+                    Бісмарк вважав стабільну державну владу
+                    основою політичного порядку.
+                </p>
+
+            </div>
+
+
+            <div class="card reveal">
+
+                <div class="card-number">
+                    05
+                </div>
+
+                <h3>
+                    Баланс сил
+                </h3>
+
+                <p>
+                    Канцлер прагнув не допустити створення
+                    ворожої коаліції проти Німецької імперії.
+                </p>
+
+            </div>
+
+
+            <div class="card reveal">
+
+                <div class="card-number">
+                    06
+                </div>
+
+                <h3>
+                    Європейський порядок
+                </h3>
+
+                <p>
+                    Його дипломатія суттєво вплинула на
+                    міжнародні відносини другої половини
+                    XIX століття.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     GALLERY
+========================================================= -->
+
+<section id="gallery">
+
+    <div class="container">
+
+        <div class="section-top reveal">
+
+            <span class="section-number">
+                04 / ГАЛЕРЕЯ
+            </span>
+
+            <h2 class="section-title">
+                Бісмарк у фотографіях
+            </h2>
+
+            <p class="section-description">
+                Реальні історичні фотографії та портрети
+                XIX століття.
+            </p>
+
+        </div>
+
+
+        <div class="showcase">
+
+
+            <!-- 1860–1870 -->
+
+            <div class="showcase-main reveal">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Otto%20von%20Bismarck%2C%20c.%201860-1870.jpg"
+                    alt="Отто фон Бісмарк, приблизно 1860–1870"
+                    loading="lazy"
+                >
+
+                <div class="image-label">
+                    Бісмарк, 1860–1870
+                </div>
+
+            </div>
+
+
+            <div class="showcase-side">
+
+
+                <!-- 1890 -->
+
+                <div class="reveal">
+
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Bundesarchiv%20Bild%20146-2005-0057%2C%20Otto%20von%20Bismarck.jpg"
+                        alt="Отто фон Бісмарк, 31 серпня 1890"
+                        loading="lazy"
+                    >
+
+                    <div class="image-label">
+                        1890
+                    </div>
+
+                </div>
+
+
+                <!-- 1895 -->
+
+                <div class="reveal">
+
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/OttoVonBismarck1.jpg"
+                        alt="Отто фон Бісмарк, близько 1895"
+                        loading="lazy"
+                    >
+
+                    <div class="image-label">
+                        Близько 1895
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     HORSEBACK
+========================================================= -->
+
+<section class="quote-section">
+
+    <div class="container">
+
+        <div class="big-quote reveal">
+
+            <div class="quote-mark">
+                “
+            </div>
+
+            <blockquote>
+                Державні діячі повинні працювати
+                з тим, що можливо.
+            </blockquote>
+
+            <cite>
+                OTTO VON BISMARCK
+            </cite>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LEGACY
+========================================================= -->
+
+<section id="legacy">
+
+    <div class="container">
+
+        <div class="section-top reveal">
+
+            <span class="section-number">
+                05 / СПАДЩИНА
+            </span>
+
+            <h2 class="section-title">
+                Що залишив після себе Бісмарк?
+            </h2>
+
+            <p class="section-description">
+                Його політичний вплив відчувався далеко
+                за межами Німеччини.
+            </p>
+
+        </div>
+
+
+        <div class="legacy">
+
+
+            <div class="legacy-image reveal">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/BismarckPferd.jpg"
+                    alt="Отто фон Бісмарк на коні, 1890"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div class="legacy-content reveal">
+
+                <h3>
+                    Архітектор імперії
+                </h3>
+
+                <p>
+                    Бісмарк відіграв ключову роль у створенні
+                    Німецької імперії та протягом майже двох
+                    десятиліть залишався центральною фігурою
+                    її політичного життя.
+                </p>
+
+                <p>
+                    Його діяльність була суперечливою.
+                    Він поєднував соціальні реформи з
+                    авторитарними методами управління та
+                    боротьбою з політичними противниками.
+                </p>
+
+                <p>
+                    Незалежно від оцінки його політики,
+                    Бісмарк безумовно належить до найвпливовіших
+                    європейських політиків XIX століття.
+                </p>
+
+
+                <ul class="legacy-list">
+
+                    <li>
+                        Об'єднання більшості німецьких держав
+                    </li>
+
+                    <li>
+                        Створення Німецької імперії
+                    </li>
+
+                    <li>
+                        Система європейських дипломатичних союзів
+                    </li>
+
+                    <li>
+                        Розвиток державного соціального страхування
+                    </li>
+
+                    <li>
+                        Формування нової системи балансу сил у Європі
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="logo">
+            BIS<span>MARCK</span>
+        </div>
+
+        <p>
+            Інтерактивна біографія Отто фон Бісмарка —
+            прусського політика, дипломата та першого
+            канцлера Німецької імперії.
+        </p>
+
+        <div class="footer-line"></div>
+
+        <div class="copyright">
+            HISTORICAL WEB PROJECT · 2026
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     TOP
+========================================================= -->
+
+<button class="top" id="top">
+    ↑
+</button>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        document
+            .getElementById("loader")
+            .classList.add("hide");
+
+    }, 800);
+
+});
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+const header =
+    document.getElementById("header");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 60) {
+
+        header.classList.add("scrolled");
+
+    } else {
+
+        header.classList.remove("scrolled");
+
+    }
+
+});
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menu =
+    document.getElementById("menu");
+
+const navMenu =
+    document.getElementById("navMenu");
+
+menu.addEventListener("click", () => {
+
+    navMenu.classList.toggle("active");
+
+    menu.textContent =
+        navMenu.classList.contains("active")
+            ? "×"
+            : "☰";
+
+});
+
+
+document
+    .querySelectorAll(".nav-menu a")
+    .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            navMenu.classList.remove("active");
+
+            menu.textContent = "☰";
+
+        });
+
+    });
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("visible");
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold: .12
+        }
+    );
+
+
+revealElements.forEach(element => {
+
+    revealObserver.observe(element);
+
+});
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const timelineItems =
+    document.querySelectorAll(".timeline-item");
+
+const timelineObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("visible");
+
+                    timelineObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold: .15
+        }
+    );
+
+
+timelineItems.forEach(item => {
+
+    timelineObserver.observe(item);
+
+});
+
+
+/* =========================================================
+   TOP BUTTON
+========================================================= */
+
+const topButton =
+    document.getElementById("top");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 600) {
+
+        topButton.classList.add("show");
+
+    } else {
+
+        topButton.classList.remove("show");
+
+    }
+
+});
+
+
+topButton.addEventListener("click", () => {
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+});
+
+
+/* =========================================================
+   HERO PARALLAX
+========================================================= */
+
+const heroImage =
+    document.querySelector(".hero-image");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY < window.innerHeight) {
+
+        heroImage.style.transform =
+            `scale(1.05) translateY(${window.scrollY * .10}px)`;
+
+    }
+
+});
+
+
+/* =========================================================
+   MOUSE EFFECT
+========================================================= */
+
+document.addEventListener("mousemove", event => {
+
+    if (window.scrollY > window.innerHeight) {
+        return;
+    }
+
+    const x =
+        (event.clientX / window.innerWidth - .5) * 8;
+
+    const y =
+        (event.clientY / window.innerHeight - .5) * 8;
+
+    heroImage.style.marginLeft =
+        `${x}px`;
+
+    heroImage.style.marginTop =
+        `${y}px`;
+
+});
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+const sections =
+    document.querySelectorAll("section[id]");
+
+const navLinks =
+    document.querySelectorAll(".nav-menu a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const top =
+            section.offsetTop - 180;
+
+        const bottom =
+            top + section.offsetHeight;
+
+        if (
+            window.scrollY >= top &&
+            window.scrollY < bottom
+        ) {
+
+            current =
+                section.getAttribute("id");
+
+        }
+
+    });
+
+
+    navLinks.forEach(link => {
+
+        if (
+            link.getAttribute("href") ===
+            "#" + current
+        ) {
+
+            link.style.color =
+                "var(--gold)";
+
+        } else {
+
+            link.style.color = "";
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   IMAGE ERROR HANDLING
+========================================================= */
+
+document
+    .querySelectorAll("img")
+    .forEach(image => {
+
+        image.addEventListener("error", () => {
+
+            image.style.background =
+                "linear-gradient(135deg,#151922,#08090c)";
+
+            image.style.minHeight =
+                "300px";
+
+            image.alt =
+                "Історичне зображення Отто фон Бісмарка";
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
+```
